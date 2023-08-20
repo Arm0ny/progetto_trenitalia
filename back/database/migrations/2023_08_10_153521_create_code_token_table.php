@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('codes', function (Blueprint $table) {
+        Schema::create('code_token', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('code_id');
+            $table->unsignedBigInteger('token_id');
             $table->timestamps();
-            $table->string("promo_code");
-
         });
     }
 
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('codes');
+        Schema::dropIfExists('code_token');
     }
 };

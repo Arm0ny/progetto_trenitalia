@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Code;
+use App\Models\Token;
+use http\Env\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class CodeController extends Controller
 {
@@ -44,5 +49,30 @@ class CodeController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function sendCode(Request $request)
+    {
+        $tokenParam = $request->input("token");
+        $token = Token::where("token", $tokenParam)->first();
+
+        if (!$token) {
+            return response()->json(['message' => "invalid token provided"], 400);
+        }
+
+        $code = $token->codes()->first();
+
+        if (!$code) {
+            $firstCode = Code::first();
+
+            if ($firstCode) {
+                $token->codes()->attach($firstCode->id);
+                return response()->json(['promo_code' => $firstCode->promo_code], 200);
+            } else {
+                return response()->json(['message' => "no codes available"], 404);
+            }
+        }
+
+        return response()->json(['promo_code' => $code->promo_code], 200);
     }
 }

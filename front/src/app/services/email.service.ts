@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {Observable, ReplaySubject, switchMap} from "rxjs";
+import {map, Observable, ReplaySubject, Subject, switchMap, tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +10,16 @@ export class EmailService {
 
   constructor(private http : HttpClient ) { }
 
-  emailSubject$ = new ReplaySubject<string>(1)
+  private e = ""
 
   baseUrl = environment.BACKEND_URL + "/api"
 
-  emailOf() : Observable<string>{
-    return this.emailSubject$
+  get email() : string{
+    return this.e
   }
 
-  setEmailSubject(email : string){
-    this.emailSubject$.next(email)
+  set email(email : string){
+    this.e = email
   }
 
   checkMail(email : string){
@@ -27,10 +27,8 @@ export class EmailService {
   }
 
   sendMail(){
-    return this.emailSubject$.pipe(
-      switchMap((email) => {
-        return this.http.post(this.baseUrl + "/send-email", {email})
-      })
+    this.http.post(this.baseUrl + "/send-email", {email: this.e}).subscribe(
+      res => console.log(this.e)
     )
   }
 

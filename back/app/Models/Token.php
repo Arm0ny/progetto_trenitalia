@@ -19,8 +19,8 @@ class Token extends Model
         return $this->hasOne(Email::class, 'token_id');
     }
 
-    public function code()
+    public function codes()
     {
-        return $this->hasOne(Code::class, 'token_id');
+        return $this->belongsToMany(Code::class, 'code_token', 'token_id', 'code_id');
     }
 }

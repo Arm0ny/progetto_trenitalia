@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CodeController;
+use App\Models\Code;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/check-email', 'App\Http\Controllers\EmailController@checkEmail');
 Route::post('/send-email', 'App\Http\Controllers\EmailController@sendEmail');
+Route::post("/get-code", [CodeController::class, 'sendCode']);
 

@@ -9,6 +9,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http"
 import {HeadersInterceptor} from "./interceptors/headers.interceptor";
 import { EmailSentComponent } from './components/email-sent/email-sent.component';
 import { ShowCodeComponent } from './components/show-code/show-code.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ShowCodeComponent } from './components/show-code/show-code.component';
       BrowserModule,
       AppRoutingModule,
       ReactiveFormsModule,
-      HttpClientModule
+      HttpClientModule,
+      NoopAnimationsModule
     ],
     providers: [
       // Registra l'interceptor come provider globale

@@ -1,9 +1,11 @@
-<main>
-  <form [formGroup]="emailForm" (ngSubmit)="checkMail()">
-    <div class="form-group">
-      <label for="email">Indirizzo Email</label>
-      <input type="email" id="email" class="form-control" formControlName="email" required />
-    </div>
-    <button type="submit" class="btn btn-primary">Invia Email</button>
-  </form>
+<main class="container">
+  <article class="card">
+    <form [formGroup]="emailForm" (ngSubmit)="checkMail()">
+      <div class="form-group">
+        <label for="email">Indirizzo Email</label>
+        <input type="email" id="email" class="form-control" formControlName="email" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Invia Email</button>
+    </form>
+  </article>
 </main>

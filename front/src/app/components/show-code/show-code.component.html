@@ -1,1 +1,14 @@
-<p>show-code works!</p>
+<main class="container">
+  <article class="card">
+    <ng-container *ngIf="promo_code else elseBlock">
+      <p>Il tuo codice sconto trenitalia è:</p>
+      <h1 class="promo_code">{{promo_code}}</h1>
+    </ng-container>
+
+    <ng-template #elseBlock>
+      <h1>C'è stato un problma nella richiesta del codice sconto</h1>
+      <p *ngIf="message">{{message}}</p>
+    </ng-template>
+  </article>
+</main>
+

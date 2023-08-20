@@ -27,7 +27,7 @@ export class EnterEmailComponent implements OnInit{
         .subscribe(
           (res) => {
             this.isEmailSent = true;
-            this.emailService.setEmailSubject(email)
+            this.emailService.email = email
             this.router.navigate(['email-sent']); // Reindirizza a /email-sent
           },
           (error: any) => {

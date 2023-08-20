@@ -8,11 +8,11 @@ import {Observable} from "rxjs";
   styleUrls: ['./email-sent.component.sass']
 })
 export class EmailSentComponent implements OnInit {
-  email$? : Observable<string>
+  email? : string
 
   ngOnInit() {
-    this.email$ = this.emailService.emailOf()
-    this.emailService.sendEmail()
+    this.email = this.emailService.email
+    this.emailService.sendMail()
   }
 
   constructor(private emailService : EmailService) { }

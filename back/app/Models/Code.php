@@ -10,12 +10,12 @@ class Code extends Model
     use HasFactory;
 
     protected $fillable = [
-        'promo_code', 'token_id',
+        'promo_code',
     ];
 
     // Definisci la relazione con il modello Token (uno-a-uno)
-    public function token()
+    public function tokens()
     {
-        return $this->belongsTo(Token::class, 'token_id');
+        return $this->belongsToMany(Token::class, 'code_token', 'code_id', 'token_id');
     }
 }
