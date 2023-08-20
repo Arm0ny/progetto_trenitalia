@@ -11,6 +11,7 @@ class Code extends Model
 
     protected $fillable = [
         'promo_code',
+        'given'
     ];
 
     // Definisci la relazione con il modello Token (uno-a-uno)

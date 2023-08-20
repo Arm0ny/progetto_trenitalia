@@ -96,9 +96,12 @@ class EmailController extends Controller
         $apiInstance = new TransactionalEmailsApi(new Client(), $config);
 
         // Prepara i dati dell'email
+        $redeemUrl = Env::get('APP_URL') . "/code?token=".$token->token;
+        $htmlContent = '<a href="' . $redeemUrl . '">LINK AL CODICE SCONTO</a> TOKEN=' . $token->token;
+
         $emailData = new SendSmtpEmail([
             'subject' => 'Ecco il tuo codice sconto trenitalia',
-            'htmlContent' => '<a href="https://youtu.be/dQw4w9WgXcQ">LINK AL CODICE SCONTO</a>' . "TOKEN=".$token->token,
+            'htmlContent' => $htmlContent,
             'sender' => ['name' => Env::get("MAIL_FROM_NAME"), 'email' => Env::get("MAIL_FROM_ADDRESS")],
             'to' => [['email' => $email]],
         ]);

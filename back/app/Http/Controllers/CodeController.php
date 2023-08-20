@@ -63,10 +63,12 @@ class CodeController extends Controller
         $code = $token->codes()->first();
 
         if (!$code) {
-            $firstCode = Code::first();
+            $firstCode = Code::query()->where('given','=', false)->first();
 
             if ($firstCode) {
                 $token->codes()->attach($firstCode->id);
+                $firstCode->given = true;
+                $firstCode->save();
                 return response()->json(['promo_code' => $firstCode->promo_code], 200);
             } else {
                 return response()->json(['message' => "no codes available"], 404);

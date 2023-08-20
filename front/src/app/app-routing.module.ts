@@ -7,7 +7,7 @@ import {ShowCodeComponent} from "./components/show-code/show-code.component";
 const routes: Routes = [
   {path:"check-email", component: EnterEmailComponent},
   {path:"email-sent", component:EmailSentComponent},
-  {path:"get-code", component:ShowCodeComponent},
+  {path:"code", component:ShowCodeComponent},
 ];
 
 @NgModule({
