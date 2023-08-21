@@ -64,20 +64,22 @@ class EmailController extends Controller
 
         if ($emailRecord) {
             // Se l'email è già presente nel database e associata a un token, ritorna il token
-            $token = Token::find($emailRecord->token_id);
-            return response()->json(['token' => $token->token, 'message' => "mail gia presente"], 200);
+            return $this->sendEmail($request);
 
         } else {
             // Se l'email non è presente nel database, crea un nuovo token e associarlo all'email
             $tokenValue = Str::random(16);
 
-            $token = new Token(['token' => $tokenValue]);
-            $token->save();
+            try {
+                $token = new Token(['token' => $tokenValue]);
+                $token->save();
 
-            $newEmail = new Email(['email' => $email, 'token_id' => $token->id]);
-            $newEmail->save();
-
-            return response()->json(['token' => $tokenValue]);
+                $newEmail = new Email(['email' => $email, 'token_id' => $token->id]);
+                $newEmail->save();
+                return $this->sendEmail($request);
+            }catch (\Exception $e){
+                return response()->json(['error' => 'Si è verificato un errore durante la creazione della email e del token'], 500);
+            }
         }
     }
 

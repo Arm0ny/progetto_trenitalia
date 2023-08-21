@@ -10,7 +10,6 @@ import {Router} from "@angular/router";
 })
 export class EnterEmailComponent implements OnInit{
   emailForm!: FormGroup;
-  isEmailSent: boolean = false;
 
   constructor(private formBuilder : FormBuilder, private emailService : EmailService, private router: Router) { }
 
@@ -26,13 +25,11 @@ export class EnterEmailComponent implements OnInit{
       this.emailService.checkMail(email)
         .subscribe(
           (res) => {
-            this.isEmailSent = true;
             this.emailService.email = email
             this.router.navigate(['email-sent']); // Reindirizza a /email-sent
           },
           (error: any) => {
             console.error(error);
-            this.isEmailSent = false;
           }
         );
     }

@@ -12,7 +12,6 @@ export class EmailSentComponent implements OnInit {
 
   ngOnInit() {
     this.email = this.emailService.email
-    this.emailService.sendMail()
   }
 
   constructor(private emailService : EmailService) { }
