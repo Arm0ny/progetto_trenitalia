@@ -9,13 +9,15 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http"
 import {HeadersInterceptor} from "./interceptors/headers.interceptor";
 import { EmailSentComponent } from './components/email-sent/email-sent.component';
 import { ShowCodeComponent } from './components/show-code/show-code.component';
+import { GetCodeOnlyComponent } from './components/get-code-only/get-code-only.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EnterEmailComponent,
     EmailSentComponent,
-    ShowCodeComponent
+    ShowCodeComponent,
+    GetCodeOnlyComponent
   ],
     imports: [
       BrowserModule,

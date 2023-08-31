@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
 import {EmailService} from "../../services/email.service";
 import {Router} from "@angular/router";
@@ -20,7 +20,7 @@ export class EnterEmailComponent implements OnInit{
   }
 
   checkMail() {
-    if (this.emailForm.valid) {
+      //se viene passato il parametro emailParam usa quello altrimenti leggi il form
       let email = this.emailForm.value.email;
       this.emailService.checkMail(email)
         .subscribe(
@@ -32,6 +32,6 @@ export class EnterEmailComponent implements OnInit{
             console.error(error);
           }
         );
-    }
+
   }
 }

@@ -64,7 +64,9 @@ class EmailController extends Controller
 
         if ($emailRecord) {
             // Se l'email è già presente nel database e associata a un token, ritorna il token
-            return $this->sendEmail($request);
+            $token = $emailRecord->token()->first();
+            $code = $token->codes()->first();
+            return $this->sendEmail($request, 285, $code->promo_code);
 
         } else {
             // Se l'email non è presente nel database, crea un nuovo token e associarlo all'email
@@ -76,19 +78,19 @@ class EmailController extends Controller
 
                 $newEmail = new Email(['email' => $email, 'token_id' => $token->id]);
                 $newEmail->save();
-                return $this->sendEmail($request);
+                return $this->sendEmail($request, 284);
             }catch (\Exception $e){
                 return response()->json(['error' => 'Si è verificato un errore durante la creazione della email e del token'], 500);
             }
         }
     }
 
-    public function sendEmail(Request $request)
+    public function sendEmail(Request $request, $templateId, $code = "")
     {
-        $email = $request->input('email');
+        $emailTo = $request->input('email');
 
         // Trova il token nel database in base all'email
-        $token = Email::where('email', $email)->first()->token;
+        $token = Email::where('email', $emailTo)->first()->token;
 
         // Inserisci qui la tua chiave API di Sendinblue
         $apiKey = Env::get("API_KEY");
@@ -102,10 +104,12 @@ class EmailController extends Controller
         $htmlContent = '<a href="' . $redeemUrl . '">LINK AL CODICE SCONTO</a> TOKEN=' . $token->token;
 
         $emailData = new SendSmtpEmail([
-            'subject' => 'Ecco il tuo codice sconto trenitalia',
-            'htmlContent' => $htmlContent,
-            'sender' => ['name' => Env::get("MAIL_FROM_NAME"), 'email' => Env::get("MAIL_FROM_ADDRESS")],
-            'to' => [['email' => $email]],
+            'templateId' => $templateId,
+            'params' => [
+                'LINK' => $redeemUrl,
+                'CODE' => $code,
+            ],
+            'to' => [['email' => $emailTo]],
         ]);
 
         try {

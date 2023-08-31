@@ -1,8 +1,10 @@
-<main class="container">
-  <article class="card">
+<main class="h-screen px-4 flex flex-col justify-center items-center gap-4 md:w-2/3 lg:w-2/5 m-auto">
+  <article class="flex flex-col p-8 bg-white gap-8 rounded-lg drop-shadow-2xl">
     <ng-container *ngIf="promo_code else elseBlock">
       <p>Il tuo codice sconto trenitalia è:</p>
-      <h1 class="promo_code">{{promo_code}}</h1>
+      <span>
+        <h1 id="textToCopy" class="text-lg font-bold back">{{promo_code}}</h1>
+      </span>
     </ng-container>
 
     <ng-template #elseBlock>
