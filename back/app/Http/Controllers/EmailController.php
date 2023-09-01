@@ -7,7 +7,6 @@ use App\Models\Token;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Env;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use SendinBlue\Client\Api\TransactionalEmailsApi;
 use SendinBlue\Client\Configuration;
@@ -65,10 +64,10 @@ class EmailController extends Controller
 
         if ($emailRecord) {
             // Se l'email è già presente nel database e associata a un token, ritorna il token
+            error_log('mail gia esistente');
             $token = $emailRecord->token()->first();
+            error_log('token= '. $token->token);
             $code = $token->codes()->first();
-            Log::info('email trovata');
-
             return $this->sendEmail($request, 285, $code->promo_code);
 
         } else {
@@ -81,10 +80,10 @@ class EmailController extends Controller
 
                 $newEmail = new Email(['email' => $email, 'token_id' => $token->id]);
                 $newEmail->save();
-                Log::info('Nuova mail aggiunta...');
+                error_log('nuova mail aggiunta');
                 return $this->sendEmail($request, 284);
             }catch (\Exception $e){
-                Log::info('errorenell aggiunta della mail');
+                error_log('errore nell aggiunta della nuova mail');
                 return response()->json(['error' => 'Si è verificato un errore durante la creazione della email e del token'], 500);
             }
         }
@@ -92,6 +91,8 @@ class EmailController extends Controller
 
     public function sendEmail(Request $request, $templateId, $code = "")
     {
+        error_log('invio mail...');
+
         $emailTo = $request->input('email');
 
         // Trova il token nel database in base all'email
@@ -122,11 +123,10 @@ class EmailController extends Controller
             $result = $apiInstance->sendTransacEmail($emailData);
 
             // Ritorna una risposta positiva al frontend (ad esempio, una risposta JSON vuota)
-            Log::info('invio la mail');
             return response()->json([], 200);
         } catch (\Exception $e) {
+            error_log('errore nell invio della mail');
             // Gestisci eventuali errori nell'invio dell'email
-            Log::info('ERRORE mail non inviata');
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
