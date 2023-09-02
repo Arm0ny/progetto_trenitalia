@@ -106,7 +106,7 @@ class EmailController extends Controller
         $apiInstance = new TransactionalEmailsApi(new Client(), $config);
 
         // Prepara i dati dell'email
-        $redeemUrl = Env::get('APP_URL') . "/code?token=".$token->token;
+        $redeemUrl = Env::get('REDEEM_URL') . "?token=".$token->token;
         $htmlContent = '<a href="' . $redeemUrl . '">LINK AL CODICE SCONTO</a> TOKEN=' . $token->token;
 
         $emailData = new SendSmtpEmail([
