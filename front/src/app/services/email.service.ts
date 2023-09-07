@@ -22,8 +22,8 @@ export class EmailService {
     this.e = email
   }
 
-  checkMail(email : string){
-    return this.http.post(this.baseUrl + "/check-email", {email})
+    checkMail(email: string, first_name: string = "", last_name: string = ""){
+    return this.http.post(this.baseUrl + "/check-email", {email, first_name, last_name})
   }
 
   sendMail(){

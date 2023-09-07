@@ -1,12 +1,26 @@
 <main class="h-screen px-4 flex flex-col justify-center items-center gap-4 md:w-2/3 lg:w-2/5 m-auto">
   <img src="/assets/img/logo_meetravel.png" class=" w-24"/>
-  <article class="flex flex-col p-8 bg-white gap-8 rounded-lg drop-shadow-2xl">
+  <article class="flex flex-col p-10 bg-white gap-8 rounded-lg drop-shadow-2xl">
     <h1>Inserisci l'indirizzo email per ottenere il link al codice sconto!</h1>
     <form [formGroup]="emailForm" (ngSubmit)="checkMail()" class="flex flex-col gap-6">
-      <div class="form-group">
-        <input placeholder="Email" type="email" id="email" formControlName="email" required class="bg-blue-100 p-2 rounded-md" />
-      </div>
-      <button type="submit" class="p-2 bg-blue-600 text-white rounded-lg">Invia!</button>
+
+      <fieldset class="flex flex-col gap-6">
+        <div class="flex flex-col">
+          <input placeholder="Email" type="email" id="email" formControlName="email" required class="bg-blue-100 p-2 rounded-md" />
+        </div>
+
+        <div class="flex gap-6 w-full">
+            <input placeholder="Nome" type="text" formControlName="first_name" required class="bg-blue-100 p-2 rounded-md w-full"/>
+            <input placeholder="Cognome" type="text" formControlName="last_name" required class="bg-blue-100 p-2 rounded-md w-full" />
+        </div>
+
+        <span class="flex gap-2 justify-center items-center">
+          <input type="checkbox" formControlName="privacyCheck" id="privacyCheck">
+          <label for="privacyCheck" class="text-sm font-light">ho preso visione e accetto l'informativa relativa alla <a href="https://meetravel.it/privacy-policy/" class="text-blue-700 underline hover:text-blue-800">privacy policy e al trattamento dei dati personali</a></label>
+        </span>
+      </fieldset>
+
+      <button type="submit" [disabled]="emailForm.invalid" class="p-2 bg-blue-600 text-white rounded-lg disabled:opacity-75">Invia!</button>
     </form>
   </article>
 </main>

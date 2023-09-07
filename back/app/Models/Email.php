@@ -18,4 +18,9 @@ class Email extends Model
     {
         return $this->belongsTo(Token::class, 'token_id');
     }
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class, 'email_id', 'id');
+    }
 }

@@ -16,13 +16,16 @@ export class EnterEmailComponent implements OnInit{
   ngOnInit(): void {
     this.emailForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
+      privacyCheck: [false, [Validators.requiredTrue]],
+      first_name: ['', [Validators.required]],
+      last_name: ['', [Validators.required]],
     });
   }
 
   checkMail() {
-      //se viene passato il parametro emailParam usa quello altrimenti leggi il form
-      let email = this.emailForm.value.email;
-      this.emailService.checkMail(email)
+    if (this.emailForm.valid) {
+      let {email, first_name, last_name} = this.emailForm.getRawValue();
+      this.emailService.checkMail(email, first_name, last_name)
         .subscribe(
           (res) => {
             this.emailService.email = email
@@ -32,6 +35,6 @@ export class EnterEmailComponent implements OnInit{
             console.error(error);
           }
         );
-
+    }
   }
 }

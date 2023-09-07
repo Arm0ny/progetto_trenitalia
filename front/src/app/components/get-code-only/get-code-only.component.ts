@@ -21,7 +21,7 @@ export class GetCodeOnlyComponent implements OnInit{
     checkMail() {
     if(this.email) {
       this.emailService.checkMail(this.email)
-        .subscribe(
+          .subscribe(
           (res) => {
             this.emailService.email = this.email
             this.router.navigate(['email-sent']); // Reindirizza a /email-sent

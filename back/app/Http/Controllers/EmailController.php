@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Email;
+use App\Models\Person;
 use App\Models\Token;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -10,7 +11,6 @@ use Illuminate\Support\Env;
 use Illuminate\Support\Str;
 use SendinBlue\Client\Api\TransactionalEmailsApi;
 use SendinBlue\Client\Configuration;
-use SendinBlue\Client\ApiClient;
 use SendinBlue\Client\Model\SendSmtpEmail;
 
 class EmailController extends Controller
@@ -20,7 +20,7 @@ class EmailController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -59,6 +59,9 @@ class EmailController extends Controller
     {
         $email = $request->input('email');
 
+        $first_name = $request->input('first_name');
+        $last_name = $request->input('last_name');
+
         // Controlla se l'email è presente nel database
         $emailRecord = Email::where('email', $email)->first();
 
@@ -80,6 +83,17 @@ class EmailController extends Controller
 
                 $newEmail = new Email(['email' => $email, 'token_id' => $token->id]);
                 $newEmail->save();
+                //Se sono presenti i dati crea la nuova persona
+                if ($first_name && $last_name) {
+                    // Se sono presenti first name e last name, crea un nuovo record nella tabella "people"
+                    $person = new Person([
+                        'first_name' => $first_name,
+                        'last_name' => $last_name,
+                        'email_id' => $newEmail->id
+                    ]);
+                    $person->save();
+                }
+
                 error_log('nuova mail aggiunta');
                 return $this->sendEmail($request, 284);
             }catch (\Exception $e){
