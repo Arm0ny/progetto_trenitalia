@@ -3,9 +3,9 @@
     <ng-container *ngIf="promo_code else elseBlock">
       <p>Il tuo codice sconto trenitalia è:</p>
       <span>
-        <h1 id="textToCopy" class="text-lg font-bold back">{{promo_code}}</h1>
-      <a href="https://trenitalia.com" class="text-center font-bold p-4 rounded-xl text-white bg-red-600 hover:bg-red-800 transition duration-200">Utilizza qui il codice sconto!</a>
+        <p id="textToCopy" class="text-lg font-bold bg-blue-600 text-white p-2">{{promo_code}}</p>
       </span>
+      <a href="https://trenitalia.com" class="text-center font-bold p-4 rounded-xl text-white bg-red-600 hover:bg-red-800 transition duration-200">Utilizza qui il codice sconto!</a>
     </ng-container>
 
     <ng-template #elseBlock>
