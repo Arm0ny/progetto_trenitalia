@@ -1,9 +1,9 @@
 <main class="h-screen px-4 flex flex-col justify-center items-center gap-4 md:w-2/3 lg:w-2/5 m-auto">
-  <article class="flex flex-col p-8 bg-white gap-8 rounded-lg drop-shadow-2xl">
+  <article class="flex flex-col p-10 bg-white gap-10 rounded-lg drop-shadow-2xl">
     <ng-container *ngIf="promo_code else elseBlock">
       <p>Il tuo codice sconto trenitalia è:</p>
       <span>
-        <p id="textToCopy" class="text-lg font-bold bg-blue-600 text-white p-2">{{promo_code}}</p>
+        <p id="textToCopy" class="text-lg font-bold bg-blue-600 text-white p-2 rounded-lg text-center">{{promo_code}}</p>
       </span>
       <a href="https://trenitalia.com" class="text-center font-bold p-4 rounded-xl text-white bg-red-600 hover:bg-red-800 transition duration-200">Utilizza qui il codice sconto!</a>
     </ng-container>
