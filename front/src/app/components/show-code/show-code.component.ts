@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {EmailService} from "../../services/email.service";
 import {CodeService} from "../../services/code.service";
+import {Clipboard} from "@angular/cdk/clipboard";
 
 @Component({
   selector: 'app-show-code',
@@ -9,7 +10,7 @@ import {CodeService} from "../../services/code.service";
 })
 export class ShowCodeComponent implements  OnInit{
 
-  constructor(private codeService : CodeService) { }
+  constructor(private codeService : CodeService, private clipboard : Clipboard) { }
 
   @Input() token : string = ""
   promo_code : string = ""
@@ -22,6 +23,11 @@ export class ShowCodeComponent implements  OnInit{
           err => this.message=err.error.message
 
       )
+  }
+
+  copyCode($event: any){
+    this.clipboard.copy(this.promo_code)
+    $event.target.textContent = "Copiato!"
   }
 
 
