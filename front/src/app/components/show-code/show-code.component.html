@@ -1,17 +1,25 @@
 <main class="h-screen px-4 flex flex-col justify-center items-center gap-4 md:w-2/3 lg:w-2/5 m-auto">
-  <article class="flex flex-col p-10 bg-white gap-10 rounded-lg drop-shadow-2xl">
+  <img src="/assets/img/logo_meetravel.png" class=" w-24"/>
+  <article class="flex flex-col p-10 bg-white gap-6 rounded-lg drop-shadow-2xl">
     <ng-container *ngIf="promo_code else elseBlock">
-      <p>Il tuo codice sconto trenitalia è:</p>
+      <p class="text-center">Il tuo codice sconto trenitalia è:</p>
       <span>
         <p id="textToCopy" class="text-lg font-bold p-2 text-center">{{promo_code}}</p>
       </span>
-      <a href="https://trenitalia.com" class="text-center font-bold p-4 rounded-xl text-white bg-red-600 hover:bg-red-800 transition duration-200">Utilizza qui il codice sconto!</a>
+      <a href="https://www.lefrecce.it/Channels.Website.WEB/#/white-label/MINISITI/?isRoundTrip=false&departureStation=&arrivalStation=&lang=it&minisitiCallBackId=56748&minisitiHeaderImageIt=&minisitiFooterImageIt=&minisitiHeaderImageEn=&minisitiFooterImageEn=&minisitiHeaderImageDe=&minisitiFooterImageDe=&minisitiHeaderImageFr=&minisitiFooterImageFr="
+         class="text-center font-bold p-4 rounded-xl text-white bg-red-600 hover:bg-red-800 transition duration-200">UTILIZZA IL CODICE SCONTO SUL PORTALE DEDICATO</a>
     </ng-container>
 
     <ng-template #elseBlock>
       <h1>C'è stato un problma nella richiesta del codice sconto</h1>
       <p *ngIf="message">{{message}}</p>
     </ng-template>
+  </article>
+  <article class="flex flex-col p-4 bg-white gap-4 rounded-lg drop-shadow-2xl text-xs">
+    <h1 class="font-bold">*Condizioni di utilizzo</h1>
+    <p>Il Buono Sconto è utilizzabile 1 volta per partenze fino al 23/03/2024.
+      Offerta valida su tutte le Frecce per offerta SuperEconomy e Speciale Frecce, su tutte le classi e i livelli di servizio.
+    </p>
   </article>
 </main>
 
