@@ -2,7 +2,7 @@
   <img src="/assets/img/logo_meetravel.png" class=" w-24"/>
   <article class="flex flex-col p-10 bg-white gap-6 rounded-lg drop-shadow-2xl items-center justify-center w-full">
     <ng-container *ngIf="promo_code else elseBlock">
-      <p class="text-center">Il tuo codice sconto trenitalia è:</p>
+      <p class="text-center">Il tuo codice sconto Trenitalia è:</p>
       <span class="flex gap-6 justify-center items-center">
         <p class="text-lg font-bold text-center">{{promo_code}}</p>
         <button (click)="copyCode($event)" class=" flex items-center justigy-center p-2 bg-blue-600 text-white rounded-lg disabled:opacity-75 hover:bg-blue-800 transition duration-200">
@@ -20,8 +20,8 @@
   </article>
   <article class="flex flex-col p-4 bg-white gap-4 rounded-lg drop-shadow-2xl text-xs">
     <h1 class="font-bold">*Condizioni di utilizzo</h1>
-    <p>Il Buono Sconto è utilizzabile 1 volta per partenze fino al 23/03/2024.
-      Offerta valida su tutte le Frecce per offerta SuperEconomy e Speciale Frecce, su tutte le classi e i livelli di servizio.
+    <p class="line">Il Buono Sconto è utilizzabile 1 volta per partenze fino al <strong>23/03/2024</strong>.
+      Offerta valida su tutte le <strong>Frecce</strong> per offerta <strong>SuperEconomy</strong> e Speciale Frecce, su tutte le classi e i livelli di servizio.
     </p>
   </article>
 </main>
