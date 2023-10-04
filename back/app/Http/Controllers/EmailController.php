@@ -67,13 +67,18 @@ class EmailController extends Controller
 
         if ($emailRecord) {
             // Se l'email è già presente nel database e associata a un token, ritorna il token
-            error_log('mail gia esistente');
             $token = $emailRecord->token()->first();
-            error_log('token= '. $token->token);
-            $code = $token->codes()->first();
-            return $this->sendEmail($request, 285, $code->promo_code);
+            $codes = $token->codes()->get();
+
+            if ($codes->count() < 2) {
+
+                return $this->sendEmail($request, 284);
+            }
+
+            return $this->sendEmail($request, 285, $codes->last()->promo_code);
 
         } else {
+            error_log('mailnon presente');
             // Se l'email non è presente nel database, crea un nuovo token e associarlo all'email
             $tokenValue = Str::random(16);
 
@@ -135,6 +140,7 @@ class EmailController extends Controller
         try {
             // Invia l'email utilizzando le API di Sendinblue
             $result = $apiInstance->sendTransacEmail($emailData);
+            error_log("maiol inviata");
 
             // Ritorna una risposta positiva al frontend (ad esempio, una risposta JSON vuota)
             return response()->json([], 200);
