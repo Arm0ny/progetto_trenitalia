@@ -10,13 +10,13 @@ class Email extends Model
     use HasFactory;
 
     protected $fillable = [
-        'email', 'token_id',
+        'email',
     ];
 
     // Definisci la relazione con il modello Token (uno-a-uno)
-    public function token()
+    public function tokens()
     {
-        return $this->belongsTo(Token::class, 'token_id');
+        return $this->belongsToMany(Token::class, 'email_token', 'email_id', 'token_id');
     }
 
     public function person()

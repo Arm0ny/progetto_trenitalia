@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('emails', function (Blueprint $table) {
+        Schema::create('email_token', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('email_id');
+            $table->unsignedBigInteger('token_id');
             $table->timestamps();
-            $table->string("email");
         });
     }
 

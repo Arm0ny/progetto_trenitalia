@@ -60,21 +60,23 @@ class CodeController extends Controller
             return response()->json(['message' => "invalid token provided"], 400);
         }
 
-        $codes = $token->codes()->get();
+        $code = $token->codes()->get()->last();
 
-        if ($codes->count() < 2) {
-            $firstAvailableCode = Code::query()->where('given','=', false)->first();
+        if (!$code) {
+            $firstCode = Code::query()->where('given','=', false)->first();
 
-            if ($firstAvailableCode) {
-                $token->codes()->attach($firstAvailableCode->id);
-                $firstAvailableCode->given = true;
-                $firstAvailableCode->save();
-                return response()->json(['promo_code' => $firstAvailableCode->promo_code], 200);
+            if ($firstCode) {
+                $token->codes()->attach($firstCode->id);
+                $firstCode->given = true;
+                $firstCode->save();
+                return response()->json(['promo_code' => $firstCode->promo_code]);
             } else {
-                return response()->json(['message' => "no codes available"], 404);
+                return response()->json(['message' => "no codes available"], 400);
             }
         }
 
-        return response()->json(['promo_code' => $codes->last()->promo_code], 200);
+        return response()->json(['promo_code' => $code->promo_code], 200);
     }
+
+
 }

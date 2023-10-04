@@ -67,10 +67,14 @@ class EmailController extends Controller
 
         if ($emailRecord) {
             // Se l'email è già presente nel database e associata a un token, ritorna il token
-            $token = $emailRecord->token()->first();
-            $codes = $token->codes()->get();
+            $tokens = $emailRecord->tokens()->get();
+            $codes = $tokens->last()->codes()->get();
 
-            if ($codes->count() < 2) {
+            if ($tokens->count() < 2) {
+                // Genera un nuovo token e associarlo all'email
+                $tokenValue = Str::random(16);
+                $newToken = Token::create(['token' => $tokenValue]);
+                $emailRecord->tokens()->attach($newToken->id);
 
                 return $this->sendEmail($request, 284);
             }
@@ -86,24 +90,31 @@ class EmailController extends Controller
                 $token = new Token(['token' => $tokenValue]);
                 $token->save();
 
-                $newEmail = new Email(['email' => $email, 'token_id' => $token->id]);
+                $newEmail = new Email(['email' => $email]);
                 $newEmail->save();
+                $e = Email::query()->where('email', $email)->first();
+
+                $e->tokens()->attach($token->id);
+                $e->save();
+
+
                 //Se sono presenti i dati crea la nuova persona
                 if ($first_name && $last_name) {
                     // Se sono presenti first name e last name, crea un nuovo record nella tabella "people"
                     $person = new Person([
                         'first_name' => $first_name,
                         'last_name' => $last_name,
-                        'email_id' => $newEmail->id
+                        'email_id' => $e->id
                     ]);
                     $person->save();
                 }
 
                 error_log('nuova mail aggiunta');
                 return $this->sendEmail($request, 284);
-            }catch (\Exception $e){
-                error_log('errore nell aggiunta della nuova mail');
-                return response()->json(['error' => 'Si è verificato un errore durante la creazione della email e del token'], 500);
+            }catch (\Exception $e) {
+                // Gestione dell'eccezione
+                error_log($e->getMessage());
+                return response()->json(['error' => 'Si è verificato un errore durante la creazione della email o del token'], 500);
             }
         }
     }
@@ -115,7 +126,8 @@ class EmailController extends Controller
         $emailTo = $request->input('email');
 
         // Trova il token nel database in base all'email
-        $token = Email::where('email', $emailTo)->first()->token;
+        $emailRecord = Email::where('email', $emailTo)->first();
+        $token = $emailRecord->tokens()->get()->last();
 
         // Inserisci qui la tua chiave API di Sendinblue
         $apiKey = Env::get("API_KEY");

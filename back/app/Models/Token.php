@@ -14,9 +14,9 @@ class Token extends Model
     ];
 
     // Definisci la relazione con il modello Email (uno-a-molti)
-    public function email()
+    public function emails()
     {
-        return $this->hasOne(Email::class, 'token_id');
+        return $this->belongsToMany(Email::class, 'email_token', 'token_id', 'email_id');
     }
 
     public function codes()
