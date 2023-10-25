@@ -1,7 +1,7 @@
 <main class="h-screen px-4 flex flex-col justify-center items-center gap-4 md:w-2/3 lg:w-2/5 m-auto">
   <img src="/assets/img/logo_meetravel.png" class=" w-24"/>
   <article class="flex flex-col p-10 bg-white gap-8 rounded-lg drop-shadow-2xl">
-    <h1>Inserisci l'indirizzo email per ottenere il link al codice sconto!</h1>
+    <h1>Inserisci la tua email per ottenere il link al codice sconto Trenitalia!</h1>
     <form [formGroup]="emailForm" (ngSubmit)="checkMail()" class="flex flex-col gap-6">
 
       <fieldset class="flex flex-col gap-6">
@@ -23,6 +23,7 @@
 
       <button type="submit" [disabled]="emailForm.invalid" class="p-2 bg-blue-600 text-white rounded-lg disabled:opacity-75">Invia!</button>
     </form>
+    <p class="text-center text-sm font-light">Puoi ottenere fino a 2 buoni sconto del 20% sulle Frecce</p>
   </article>
   <article class="flex flex-col p-6 bg-white gap-8 rounded-lg drop-shadow-2xl w-full justify-center items-center">
     <h4>Hai gia un codice sconto?</h4>
