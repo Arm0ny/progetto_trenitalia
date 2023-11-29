@@ -1,7 +1,7 @@
 <main class=" p-4 flex flex-col justify-center items-center gap-4 md:w-2/3 lg:w-full m-auto">
   <img src="/assets/img/logo_meetravel.png" class=" w-24"/>
-  <article class="flex flex-col p-10 bg-white gap-8 rounded-lg drop-shadow-2xl">
-    <h1>Inserisci la tua email per ottenere il link al codice sconto Trenitalia!</h1>
+  <article class=" text-center flex flex-col p-10 bg-white gap-8 rounded-lg drop-shadow-2xl">
+    <h4>Inserisci la tua email per ottenere il link al codice sconto Trenitalia!</h4>
     <form [formGroup]="emailForm" (ngSubmit)="checkMail()" class="flex flex-col gap-6">
 
       <fieldset class="flex flex-col gap-6">
@@ -27,14 +27,14 @@
   </article>
 
   <article class="flex flex-col p-6 bg-white gap-8 rounded-lg drop-shadow-2xl w-full justify-center items-center">
-    <h4 class="text-xl">Se hai gia un codice sconto, utilizzalo sul sito Trenitalia dedicato</h4>
+    <h4 class="">Se hai gia un codice sconto, utilizzalo sul sito Trenitalia dedicato</h4>
     <a target="_blank" href="https://www.lefrecce.it/Channels.Website.WEB/#/white-label/MINISITI/?isRoundTrip=false&departureStation=&arrivalStation=&lang=it&minisitiCallBackId=56748&minisitiHeaderImageIt=&minisitiFooterImageIt=&minisitiHeaderImageEn=&minisitiFooterImageEn=&minisitiHeaderImageDe=&minisitiFooterImageDe=&minisitiHeaderImageFr=&minisitiFooterImageFr="
        class="text-center font-bold p-4 rounded-xl text-white bg-red-600 hover:bg-red-800 transition duration-200">ENTRA NEL PORTALE SCONTI!</a>
   </article>
 
   <article class="flex flex-col p-8 bg-white gap-8 rounded-lg drop-shadow-2xl w-full text-center justify-center items-center">
-    <h3 class="text-xl">Non hai ancora l'app MeeTravel?</h3>
-    <button (click)="openAppStore()" class="p-2 bg-blue-600 text-white rounded-lg flex justify-center items-center gap-4">
+    <h3 class="">Non hai ancora l'app MeeTravel?</h3>
+    <button (click)="openAppStore()" class="py-4 px-6 bg-blue-600 text-white rounded-lg flex justify-center items-center gap-4">
       <p class="text-center font-bold">SCARICALA SUBITO!!</p> <img src="assets/img/logo_meetravel.png" class="w-8" />
     </button>
   </article>
