@@ -10,6 +10,11 @@ import {HeadersInterceptor} from "./interceptors/headers.interceptor";
 import { EmailSentComponent } from './components/email-sent/email-sent.component';
 import { ShowCodeComponent } from './components/show-code/show-code.component';
 import { GetCodeOnlyComponent } from './components/get-code-only/get-code-only.component';
+import {SetCsrfInterceptor} from "./interceptors/set-csrf.interceptor";
+import {CookieService} from "ngx-cookie-service";
+import { LoginComponent } from './components/auth/login/login.component';
+import { BackofficeHomeComponent } from './components/backoffice-home/backoffice-home.component';
+import { GiftcodePopupComponent } from './components/giftcode-popup/giftcode-popup.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
 
 @NgModule({
@@ -19,6 +24,9 @@ import { RedirectComponent } from './components/redirect/redirect.component';
     EmailSentComponent,
     ShowCodeComponent,
     GetCodeOnlyComponent,
+    LoginComponent,
+    BackofficeHomeComponent,
+    GiftcodePopupComponent,
     RedirectComponent
   ],
     imports: [
@@ -35,6 +43,12 @@ import { RedirectComponent } from './components/redirect/redirect.component';
         useClass: HeadersInterceptor,
         multi: true
       },
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: SetCsrfInterceptor,
+        multi: true
+      },
+      CookieService,
     ],
   bootstrap: [AppComponent]
 })
