@@ -7,11 +7,9 @@ import {Router} from "@angular/router";
   styleUrls: ['./redirect.component.sass']
 })
 export class RedirectComponent implements OnInit{
-  constructor(private router : Router) {
-  }
 
-  ngOnInit(): void {
-    // Effettua il reindirizzamento all'URL desiderato quando il componente viene inizializzato
-    this.router.navigate(['https://www.meetravel.it']);
+
+  ngOnInit() {
+    window.location.href = 'https://meetravel.it/'
   }
 }
