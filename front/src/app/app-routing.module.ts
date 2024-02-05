@@ -5,6 +5,7 @@ import {EmailSentComponent} from "./components/email-sent/email-sent.component";
 import {ShowCodeComponent} from "./components/show-code/show-code.component";
 import {GetCodeOnlyComponent} from "./components/get-code-only/get-code-only.component";
 import {RedirectComponent} from "./components/redirect/redirect.component";
+import {StoreRedirectComponent} from "./components/redirect/store-redirect/store-redirect.component";
 
 const routes: Routes = [
   {path:"", component: RedirectComponent},
@@ -12,6 +13,8 @@ const routes: Routes = [
     {path:"email-sent", component:EmailSentComponent},
     {path:"code", component:ShowCodeComponent},
     {path:"code-only", component:GetCodeOnlyComponent},
+  {path:"stores", component: StoreRedirectComponent},
+
 
 
 
